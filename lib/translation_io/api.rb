@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "translation_io/api/version"
 require "net/http"
 require "json"
@@ -8,14 +10,33 @@ module TranslationIO::API
   class Segments
     def initialize(api_key:)
       @api_key = api_key
-      @base_url = "https://translation.io/api/v1/segments.json"
+      @base_url = "https://translation.io/api/v1/segments"
     end
 
-    def list(target_language, options: {})
+    def list(target_language, options = {})
       request.get(
         @base_url,
         options.merge("target_language": target_language)
       )
+    end
+
+    def create(target_language, type:, key:, source:)
+      request.post(
+        @base_url, {
+          target_language: target_language,
+          type: type,
+          key: key,
+          source: source
+        }
+      )
+    end
+
+    def add_tag(segment_id, name:)
+      request.post(@base_url + "/#{segment_id}/add_tag", { name: name })
+    end
+
+    def remove_tag(segment_id, name:)
+      request.post(@base_url + "/#{segment_id}/remove_tag", { name: name })
     end
 
     private
@@ -40,6 +61,28 @@ module TranslationIO::API
     def get(uri, data)
       uri = URI.parse(uri)
       req = Net::HTTP::Get.new(uri)
+
+      req["Content-Type"] = "application/json"
+      req["X-api-key"] = @api_key
+      req.body = data.to_json
+
+      res = Net::HTTP.start(uri.hostname, uri.port, use_ssl: true) do |http|
+        http.request(req)
+      end
+
+      Response.new(res)
+    end
+
+    # Post request
+    #
+    # @param uri [String]
+    # @param data [Hash] the JSON payload for this request
+    #
+    # @return [TranslationIO::API::Response]
+
+    def post(uri, data)
+      uri = URI.parse(uri)
+      req = Net::HTTP::Post.new(uri)
 
       req["Content-Type"] = "application/json"
       req["X-api-key"] = @api_key

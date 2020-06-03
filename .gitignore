@@ -9,3 +9,5 @@
 
 # Rubocop caching file
 .rubocop-https*
+
+Gemfile.lock

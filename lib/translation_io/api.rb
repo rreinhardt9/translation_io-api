@@ -1,50 +1,12 @@
 # frozen_string_literal: true
 
 require "translation_io/api/version"
+require "translation_io/api/segments"
 require "net/http"
 require "json"
 
 module TranslationIO::API
   class Error < StandardError; end
-
-  class Segments
-    def initialize(api_key:)
-      @api_key = api_key
-      @base_url = "https://translation.io/api/v1/segments"
-    end
-
-    def list(target_language, options = {})
-      request.get(
-        @base_url,
-        options.merge("target_language": target_language)
-      )
-    end
-
-    def create(target_language, type:, key:, source:)
-      request.post(
-        @base_url, {
-          target_language: target_language,
-          type: type,
-          key: key,
-          source: source
-        }
-      )
-    end
-
-    def add_tag(segment_id, name:)
-      request.post(@base_url + "/#{segment_id}/add_tag", { name: name })
-    end
-
-    def remove_tag(segment_id, name:)
-      request.post(@base_url + "/#{segment_id}/remove_tag", { name: name })
-    end
-
-    private
-
-    def request
-      Request.new(api_key: @api_key)
-    end
-  end
 
   class Request
     def initialize(api_key:)

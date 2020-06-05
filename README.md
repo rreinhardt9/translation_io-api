@@ -101,6 +101,11 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/rreinhardt9/translation_io-api. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [code of conduct](https://github.com/rreinhardt9/translation_io-api/blob/master/CODE_OF_CONDUCT.md).
 
+Please squash the code in your PR down into a commit with a sensible message before requesting review (or after making updates based on review).
+
+Here are some tips on good commit messages:
+[Thoughtbot](https://thoughtbot.com/blog/5-useful-tips-for-a-better-commit-message)
+[Tim Pope](https://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html)
 
 ## License
 

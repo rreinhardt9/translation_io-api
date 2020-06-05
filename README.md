@@ -1,7 +1,7 @@
 # TranslationIO::API
 
 Wrapper for the translation.io rest API. This is a work in progress, we started with the endpoints we needed but expect that we can and contributers can continue to this base.
-Check out the [the documentation](https://translation.io/docs/api) for their API and the documentation on this gem.
+Check out the [the documentation](https://translation.io/docs/api) for their API and the documentation [on this gem at on Rubydoc](https://www.rubydoc.info/gems/translation_io-api).
 
 ## Installation
 
